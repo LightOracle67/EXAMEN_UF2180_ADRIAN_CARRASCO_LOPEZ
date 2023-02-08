@@ -1,0 +1,2 @@
+CREATE USER empresa IDENTIFIED BY 'ExamenAdrian12345$';
+GRANT INSERT,SELECT,UPDATE,DELETE ON empresa.* to empresa;
