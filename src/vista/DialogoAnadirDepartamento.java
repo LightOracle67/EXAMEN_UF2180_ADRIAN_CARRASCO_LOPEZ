@@ -56,7 +56,7 @@ public class DialogoAnadirDepartamento extends JDialog {
 			panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Detalles del departamento", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			((TitledBorder)  panel.getBorder()).setTitleFont(new Font("Tahoma", Font.PLAIN, 14));
 			contentPanel.add(panel, "cell 0 0,grow");
-			panel.setLayout(new MigLayout("", "[55.00][][grow]", "[][][][][]"));
+			panel.setLayout(new MigLayout("", "[36.00][][grow]", "[][][][][]"));
 			{
 				JLabel lblNewLabel_3 = new JLabel("");
 				lblNewLabel_3.setIcon(new ImageIcon(DialogoAnadirDepartamento.class.getResource("/images/editar32.png")));
