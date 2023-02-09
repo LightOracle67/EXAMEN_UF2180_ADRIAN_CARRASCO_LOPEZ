@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 
 public class VentanaMostrarCentros extends JFrame {
 
+	private static final long serialVersionUID = 3808483538348102256L;
 	private JPanel contentPane;
 	private JTable table;
 	private Controlador controlador;
@@ -54,6 +55,7 @@ public class VentanaMostrarCentros extends JFrame {
 				"C\u00F3digo del centro", "Nombre", "Direcci\u00F3n"
 			}
 		) {
+			private static final long serialVersionUID = -3440876452092325740L;
 			Class[] columnTypes = new Class[] {
 				Integer.class, Object.class, String.class
 			};

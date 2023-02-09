@@ -6,11 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -42,7 +40,7 @@ public class DialogoAnadirDepartamento extends JDialog {
 	private JRadioButton rdbtnPropiedad;
 	private JRadioButton rdbtnEnFunciones;
 	private JSpinner spn_Presupuesto;
-	private JTextField txt_CodCentro;
+	private JComboBox txt_CodCentro;
 
 
 	/**
@@ -82,9 +80,8 @@ public class DialogoAnadirDepartamento extends JDialog {
 				panel.add(lblCentro, "cell 1 1,alignx trailing");
 			}
 			{
-				txt_CodCentro = new JTextField();
+				txt_CodCentro = new JComboBox();
 				panel.add(txt_CodCentro, "cell 2 1,growx");
-				txt_CodCentro.setColumns(10);
 			}
 			{
 				JLabel lblTipoDireccin = new JLabel("Tipo Dirección:");
@@ -164,7 +161,8 @@ public class DialogoAnadirDepartamento extends JDialog {
 	protected void recogerDatos(){
 		try {
 		int codDep = Integer.parseInt(txtCodDep.getText());
-		int codCentro = Integer.parseInt(txt_CodCentro.getText());
+		Centro c = (Centro) txt_CodCentro.getSelectedItem();
+		int codCentro = c.getCod_centro();
 		String tipo_dir = "";
 		if(rdbtnEnFunciones.isSelected()) {
 			tipo_dir = "F";
@@ -186,5 +184,19 @@ public class DialogoAnadirDepartamento extends JDialog {
 
 	public void setControlador(Controlador controlador) {
 		this.controlador=controlador;
+	}
+
+	public void vaciar() {
+		txtNombre.setText("");
+		txtCodDep.setText("");
+		spn_Presupuesto.setValue(5);
+		rdbtnPropiedad.setSelected(true);
+		rdbtnEnFunciones.setSelected(false);
+	}
+	public void setListaCentros(ArrayList<Centro> listaCentros) {
+		txt_CodCentro.removeAllItems();
+		for(Centro c : listaCentros) {
+			txt_CodCentro.addItem(c);
+		}
 	}
 }

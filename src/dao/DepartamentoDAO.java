@@ -110,7 +110,7 @@ public class DepartamentoDAO {
     }
 
 
-    public int insertarDepartamento(Departamento departamento) {
+    public int insertarDepartamento(Departamento departamento) throws SQLException {
     	// Obtenemos una conexion a la base de datos.
 		Connection con = conexion.getConexion();
 		PreparedStatement consulta = null;
@@ -130,13 +130,15 @@ public class DepartamentoDAO {
 
 		} catch (SQLException e) {
 			System.out.println("Error al realizar la insercion del departamento: "
-		        +e.getMessage());
+		        +e.getMessage()+"\nError code:"+e.getErrorCode());
+			throw e;
 		} finally {
 			try {
 				consulta.close();
 				conexion.desconectar();
 			} catch (SQLException e) {
-				System.out.println("Error al liberar recursos: "+e.getMessage());
+				System.out.println("Error al liberar recursos: "+e.getMessage()+"\nError code:"+e.getErrorCode());
+				throw e;
 			} catch (Exception e) {
 				
 			}
