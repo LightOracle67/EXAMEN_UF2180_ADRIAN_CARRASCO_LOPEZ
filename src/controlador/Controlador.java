@@ -104,7 +104,7 @@ public class Controlador {
 	 * M�todo del controlador que a�ade un nuevo centro a la tabla de centros
 	 * @param centro
 	 */
-	public void insertaDepartamento(Departamento departamento) {
+	public void insertaDepartamento(Departamento departamento){
 		// Invocando a departamentoDAO
 		int resultado = departamentoDAO.insertarDepartamento(departamento);
 		if (resultado ==0) {

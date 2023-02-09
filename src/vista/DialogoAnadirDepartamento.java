@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ComboBoxModel;
@@ -15,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
@@ -31,6 +33,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class DialogoAnadirDepartamento extends JDialog {
 
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtCodDep;
 	private JTextField txtNombre;
@@ -136,8 +139,8 @@ public class DialogoAnadirDepartamento extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						recogerDatos();
-					}
+							recogerDatos();
+						}
 				});
 				okButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				okButton.setActionCommand("OK");
@@ -158,26 +161,30 @@ public class DialogoAnadirDepartamento extends JDialog {
 		}
 	}
 	
-	protected void recogerDatos() {
-		
+	protected void recogerDatos(){
+		try {
 		int codDep = Integer.parseInt(txtCodDep.getText());
 		int codCentro = Integer.parseInt(txt_CodCentro.getText());
 		String tipo_dir = "";
 		if(rdbtnEnFunciones.isSelected()) {
 			tipo_dir = "F";
-		}else{
+		}else if (rdbtnPropiedad.isSelected()){
 			tipo_dir = "P";
+		}else {
+			JOptionPane.showMessageDialog(this, "Debe seleccionar un valor.","Tipo Dir no seleccionado.",JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		int presupuesto = Integer.parseInt(spn_Presupuesto.getValue().toString());
 		String nombre = txtNombre.getText();
 		Departamento dep = new Departamento(codDep, codCentro, tipo_dir,presupuesto,nombre);
-		controlador.insertaDepartamento(dep);
-		
+			controlador.insertaDepartamento(dep);
+		} catch(NumberFormatException e) {
+			JOptionPane.showMessageDialog(this, "Error, se ha intentado introducir un código no válido.\nEl código de departamento y el código de centro,\n deben ser numéricos.\n"+e.getMessage(),"Error de datos.",JOptionPane.ERROR_MESSAGE);
+	};
 	}
 
 
 	public void setControlador(Controlador controlador) {
 		this.controlador=controlador;
 	}
-
 }
